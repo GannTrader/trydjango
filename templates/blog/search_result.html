@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Search Results {% endblock %}
+{% block content %}
+
+{% if total_results is None %}
+<h2>No results...</h2>
+{% else %}
+<h2>{{ total_results }} results...</h2>
+<div class="card">
+    <div class="card-body">
+        {% for post in posts %}
+        <h3><a href="{% url 'post' post.slug %}">{{ post.title }}</a></h3>
+        <p><a href="{% url 'post' post.slug %}"><img src="/media/{{ post.image }}" alt="" width="50%"></a></p>
+        <p>{{ post.body|truncatechars:200 }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

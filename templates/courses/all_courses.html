@@ -8,7 +8,7 @@
             <h2><a href="{% url 'detail' course.pk %}">{{ course.name }}</a></h2>
             <p><a href="{% url 'detail' course.pk %}"><img src="/media/{{ course.image }}" alt="" width="100%"></a></p>
             <p class="font-weight-bold">${{ course.price }}</p>
-            <p>{% lorem 1 p random %}</p>
+            <p>{% lorem 20 w random %}</p>
             <button class="btn btn-danger">Buy Now</button>
         </div>
     </div>

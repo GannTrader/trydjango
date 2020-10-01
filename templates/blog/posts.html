@@ -2,15 +2,19 @@
 {% block title %} My Blog {% endblock %}
 {% block content %}
 
-{% for post in object_list %}
-<div class="card mb-3">
-    <div class="card-body">
-        <h2><a href="{% url 'post' post.pk %}">{{ post.title }}</a></h2>
-        <p><a href="{% url 'post' post.pk %}"><img src="/media/{{ post.image }}" alt="" width="100%"></a></p>
-        <p>{{ post.body }}</p>
+<div class="row">
+    {% for post in object_list %}
+    <div class="card col-md-6">
+        <div class="card-body">
+            <h2><a href="{% url 'post' post.slug %}">{{ post.title }}</a></h2>
+            <p>Published: {{ post.created_at }}</p>
+            <p><a href="{% url 'post' post.slug %}"><img src="/media/{{ post.image }}" alt="" width="100%"></a></p>
+            <p>{{ post.body|truncatechars:100 }}</p>
+            <p><a href="{% url 'post' post.slug %}" class="btn btn-success">Read More</a></p>
+        </div>
     </div>
+    <hr>
+    {% endfor %}
 </div>
-<hr>
-{% endfor %}
 
 {% endblock %}

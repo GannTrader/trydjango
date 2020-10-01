@@ -18,7 +18,7 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Logo</a>
+    <a class="navbar-brand" href="#">NHIET KE TAI CHINH</a>
 
     <!-- Links -->
     <ul class="navbar-nav">
@@ -31,7 +31,7 @@
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                For VIP Member
+                VIP Member
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Level 1</a>
@@ -54,24 +54,49 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="post">
-                        <p><input type="text" placeholder="search..." class="form-control"></p>
+                    <form action="{% url 'search' %}" method="get">
+                        <p><input type="text" name="keyword" placeholder="search..." class="form-control"></p>
                         <p><input type="submit" class="btn btn-success" value="search"></p>
                     </form>
                 </div>
             </div>
             <hr>
+            {% if not user.is_authenticated %}
             <div class="card">
+                <div class="card-header bg-dark text-light">Member</div>
                 <div class="card-body">
-                    <form action="" method="post">
-                        <p>Username: <input type="text" class="form-control" placeholder="Username or email..."></p>
-                        <p>Password: <input type="password" class="form-control" placeholder="Password..."></p>
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <p>Username: <input type="text" name="username" class="form-control" placeholder="Username or email..."></p>
+                        <p>Password: <input type="password" name="password" class="form-control" placeholder="Password..."></p>
                         <p><input type="submit" class="btn btn-success" value="Login"></p>
-                        <p><a href="">Join Us</a></p>
+                        <p><a href="{% url 'register' %}">Join Us</a></p>
                         <p><a href="">Forgot password?</a></p>
                     </form>
                 </div>
             </div>
+            {% else %}
+            <div class="card">
+                <div class="card-header bg-dark text-light">Account Information</div>
+                <div class="card-body">
+                    <p>Username: {{ user.username }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Last Login: {{ user.last_login }}</p>
+                    <p><a href="{% url 'password-change' %}">Change Password?</a></p>
+                    <p><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></p>
+                </div>
+            </div>
+            {% endif %}
+            {% if categories %}
+            <div class="card">
+                <div class="card-header bg-dark text-light">Catagories</div>
+                <div class="card-body">
+                    {% for category in categories %}
+                    <p><a href="{% url 'post_category' category.slug %}" class="font-weight-bold text-capitalize">{{ category.name }}</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

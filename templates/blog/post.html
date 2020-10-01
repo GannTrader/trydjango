@@ -1,24 +1,51 @@
 {% extends 'base.html' %}
 {% block title %} {{ object.title }} {% endblock %}
+
 {% block content %}
 <div class="card">
     <div class="card-body">
         <h2>{{ object.title }}</h2>
         <p><img src="/media/{{ object.image }}" alt=""></p>
         <p>{% lorem 4 p random %}</p>
-        <p><a href="" class="btn btn-primary btn-sm">50 likes</a></p>
+        <hr>
+        {% if liked is False %}
+        <form action="{% url 'like' object.slug %}" method="get">
+            <button class="btn btn-primary btn-sm">Like</button>
+            {{ total_likes }} like{{ total_likes|pluralize }}
+        </form>
+        {% else %}
+        <form action="{% url 'like' object.slug %}" method="get">
+            <button class="btn btn-primary btn-sm">UnLike</button>
+            {{ total_likes }} like{{ total_likes|pluralize }}
+        </form>
+        {% endif %}
     </div>
 </div>
+<hr>
+{% if comments %}
+<div class="card">
+    <div class="card-header bg-dark text-light">User Comment</div>
+    <div class="card-body">
+        {% for comment in comments %}
+        <h6><span class="font-weight-bold">{{ comment.user }}</span> -- {{ comment.created_at }}</h6>
+        <p>{{ comment.text }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 <hr>
 <div class="card">
     <div class="card-header bg-dark text-light">Leave a Reply</div>
     <div class="card-body">
-        <form action="" method="post">
-            <p><input type="text" placeholder="your name..." class="form-control"></p>
-            <p><input type="email" placeholder="your email..." class="form-control"></p>
-            <p><textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="your comment..."></textarea></p>
+        {% if not user.is_authenticated %}
+        <p><a href="{% url 'register' %}" class="btn btn-success btn-sm">Register to Comment</a></p>
+        {% else %}
+        <form action="{% url 'comment' object.slug %}" method="post">
+            {% csrf_token %}
+            <p><input type="text" name="comment" class="form-control" placeholder="text..."></p>
             <p><input type="submit" class="btn btn-dark"></p>
         </form>
+        {% endif %}
     </div>
 </div>
 <hr>
