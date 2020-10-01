@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} My Blog {% endblock %}
+{% block content %}
+
+{% for post in object_list %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h2><a href="{% url 'post' post.pk %}">{{ post.title }}</a></h2>
+        <p><a href="{% url 'post' post.pk %}"><img src="/media/{{ post.image }}" alt="" width="100%"></a></p>
+        <p>{{ post.body }}</p>
+    </div>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}

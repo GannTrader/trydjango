@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Khóa học VIP {% endblock %}
+{% block content %}
+<div class="row">
+    {% for course in object_list %}
+    <div class="card col-md-6">
+        <div class="card-body">
+            <h2><a href="{% url 'detail' course.pk %}">{{ course.name }}</a></h2>
+            <p><a href="{% url 'detail' course.pk %}"><img src="/media/{{ course.image }}" alt="" width="100%"></a></p>
+            <p class="font-weight-bold">${{ course.price }}</p>
+            <p>{% lorem 1 p random %}</p>
+            <button class="btn btn-danger">Buy Now</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

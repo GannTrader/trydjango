@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Logo</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'posts' %}">Blog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'course' %}">Courses</a>
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                For VIP Member
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Level 1</a>
+                <a class="dropdown-item" href="#">Level 2</a>
+                <a class="dropdown-item" href="#">Level 3</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Contact</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="post">
+                        <p><input type="text" placeholder="search..." class="form-control"></p>
+                        <p><input type="submit" class="btn btn-success" value="search"></p>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="post">
+                        <p>Username: <input type="text" class="form-control" placeholder="Username or email..."></p>
+                        <p>Password: <input type="password" class="form-control" placeholder="Password..."></p>
+                        <p><input type="submit" class="btn btn-success" value="Login"></p>
+                        <p><a href="">Join Us</a></p>
+                        <p><a href="">Forgot password?</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-3 bg-dark text-light text-center">
+    <p>@minhthang88</p>
+</div>
+</body>
+</html>

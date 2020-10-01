@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} {{ object.title }} {% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>{{ object.title }}</h2>
+        <p><img src="/media/{{ object.image }}" alt=""></p>
+        <p>{% lorem 4 p random %}</p>
+        <p><a href="" class="btn btn-primary btn-sm">50 likes</a></p>
+    </div>
+</div>
+<hr>
+<div class="card">
+    <div class="card-header bg-dark text-light">Leave a Reply</div>
+    <div class="card-body">
+        <form action="" method="post">
+            <p><input type="text" placeholder="your name..." class="form-control"></p>
+            <p><input type="email" placeholder="your email..." class="form-control"></p>
+            <p><textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="your comment..."></textarea></p>
+            <p><input type="submit" class="btn btn-dark"></p>
+        </form>
+    </div>
+</div>
+<hr>
+<p><a href="{% url 'posts'%}" class="btn btn-danger btn-sm">Back to Home</a></p>
+
+{% endblock %}
