@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>{{ object.lesson }}</h2>
+        <p>{{ object.body }}</p>
+    </div>
+</div>
+<hr>
+<p><a href="{% url 'detail' object.course.pk %}" class="btn btn-dark btn-sm">Back to Course</a></p>
+
+{% endblock %}

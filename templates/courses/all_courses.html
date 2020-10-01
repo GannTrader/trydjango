@@ -5,11 +5,15 @@
     {% for course in object_list %}
     <div class="card col-md-6">
         <div class="card-body">
-            <h2><a href="{% url 'detail' course.pk %}">{{ course.name }}</a></h2>
+            <h4 class="mb-3"><a href="{% url 'detail' course.pk %}" class="text-uppercase">{{ course.name }}</a></h4>
             <p><a href="{% url 'detail' course.pk %}"><img src="/media/{{ course.image }}" alt="" width="100%"></a></p>
+            {% if course.price != 0 %}
             <p class="font-weight-bold">${{ course.price }}</p>
+            {% else %}
+            <p class="font-weight-bold text-success">FREE</p>
+            {% endif %}
             <p>{% lorem 20 w random %}</p>
-            <button class="btn btn-danger">Buy Now</button>
+            <button class="btn btn-dark">Join Now</button>
         </div>
     </div>
     {% endfor %}

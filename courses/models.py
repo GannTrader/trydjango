@@ -10,3 +10,13 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Lesson(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    lesson = models.CharField(max_length=255)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lesson} -- {self.course.name}"

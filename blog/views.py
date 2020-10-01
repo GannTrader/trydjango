@@ -14,6 +14,7 @@ class CategoryMixin(object):
 
 
 class PostListView(CategoryMixin, ListView):
+    paginate_by = 2
     queryset = PostModel.objects.all().order_by("-created_at")
     template_name = "blog/posts.html"
 
