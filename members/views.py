@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext, gettext_lazy as _
 
 # Create your views here.
 from django.urls import reverse_lazy
@@ -11,7 +12,11 @@ from django.views import View
 from django.views.generic import TemplateView, CreateView
 
 
-class SiteLoginView(View):
+class SiteVerifyUser(TemplateView):
+    template_name = "registration/verified_user.html"
+
+
+class SidebarLoginView(View):
     def post(self, request):
         username = request.POST["username"]
         password = request.POST["password"]
@@ -24,8 +29,19 @@ class SiteLoginView(View):
 
 
 
-# class SiteLoginView(LoginView):
-#     template_name = "registration/login.html"
+class EditLoginForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control', 'placeholder': 'Username or email...'}))
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class': 'form-control', 'placeholder': 'Password...'}),
+    )
+
+class SiteLoginView(LoginView):
+    form_class = EditLoginForm
+    template_name = "registration/login.html"
+
+
 class EditRegisterForm(UserCreationForm):
     class Meta:
         model = User
@@ -58,8 +74,12 @@ class SiteLogoutView(LogoutView):
     template_name = "registration/logout.html"
 
 
-class ProfileView(TemplateView):
+class ProfileView(View):
     template_name = "registration/profile.html"
+    def get(self, request):
+        user_courses = request.user.groups.all()
+        context = {"user_courses": user_courses}
+        return render(request, self.template_name, context)
 
 
 #change password

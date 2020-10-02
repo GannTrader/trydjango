@@ -126,3 +126,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 LOGIN_REDIRECT_URL = 'course'
+# LOGIN_URL = 'verified_user'

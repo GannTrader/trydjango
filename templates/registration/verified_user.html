@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>Sorry, you don't have permission to view this course. </h2>
+        <p>Please login on sidebar. If you don't have account, just register or contact for help!</p>
+        <p><a href="{% url 'register' %}" class="btn btn-danger">Register</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -29,6 +29,7 @@
             <a class="nav-link" href="{% url 'course' %}">Courses</a>
         </li>
         <!-- Dropdown -->
+        {% comment %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbardrop" data-toggle="dropdown">
                 VIP Member
@@ -39,6 +40,12 @@
                 <a class="dropdown-item" href="#">Chiêm Tinh</a>
             </div>
         </li>
+        {% endcomment %}
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="">Contact</a>
         </li>
@@ -65,10 +72,12 @@
             <div class="card">
                 <div class="card-header bg-dark text-light">Member</div>
                 <div class="card-body">
-                    <form action="{% url 'login' %}" method="post">
+                    <form action="{% url 'sidebar-login' %}" method="post">
                         {% csrf_token %}
-                        <p>Username: <input type="text" name="username" class="form-control" placeholder="Username or email..."></p>
-                        <p>Password: <input type="password" name="password" class="form-control" placeholder="Password..."></p>
+                        <p>Username: <input type="text" name="username" class="form-control"
+                                            placeholder="Username or email..."></p>
+                        <p>Password: <input type="password" name="password" class="form-control"
+                                            placeholder="Password..."></p>
                         <p><input type="submit" class="btn btn-success" value="Login"></p>
                         <p><a href="{% url 'register' %}">Join Us</a></p>
                         <p><a href="">Forgot password?</a></p>
@@ -99,6 +108,7 @@
             {% endif %}
         </div>
     </div>
+
 </div>
 
 <div class="container-fluid py-3 bg-dark text-light text-center">

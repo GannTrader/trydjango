@@ -4,6 +4,11 @@
     <div class="card-body">
         <h2>This is your profile...</h2>
         <p>Username: {{ user.username }}</p>
+        <p>Your course{{user_courses|pluralize }}:</p>
+        {% for item in user_courses %}
+        <li>{{ item }}</li>
+        {% endfor %}
+        <br>
         <p>Email: {{ user.email }}</p>
         <p>Last login: {{ user.last_login }}</p>
         <p><a href="{% url 'password-change' %}" class="btn btn-danger">change password</a></p>

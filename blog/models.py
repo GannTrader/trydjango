@@ -27,7 +27,7 @@ class PostModel(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title.replace("đ", "d"))
         super(PostModel, self).save(*args, **kwargs)
 
 

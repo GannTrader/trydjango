@@ -55,7 +55,7 @@ class GetPostLike(View):
 class SearchView(View):
     def get(self, request):
         _keyword = request.GET["keyword"]
-        posts = PostModel.objects.filter(title__contains=_keyword)
+        posts = PostModel.objects.filter(body__contains=_keyword)
         total_results = posts.count()
         template_name = "blog/search_result.html"
         context = {"posts": posts, "total_results": total_results}
@@ -82,5 +82,5 @@ class PostByCategory(View):
         _category = Category.objects.get(slug=_slug)
         posts = PostModel.objects.filter(category=_category)
         template_name = "blog/post_by_category.html"
-        context = {"posts": posts}
+        context = {"posts": posts, "categories": Category.objects.all()}
         return render(request, template_name, context)
